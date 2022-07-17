@@ -1,0 +1,24 @@
+html,
+body {
+  height: 100%;
+}
+
+main {
+  position: relative;
+  overflow: hidden;
+}
+
+.open-nav {
+  @media (max-width: 1023px) {
+    animation: nav-open 0.2s linear;
+  }
+}
+@keyframes nav-open {
+  from {
+    margin-bottom: -50vh;
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
