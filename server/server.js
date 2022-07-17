@@ -24,11 +24,6 @@ const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
 const app = express();
 app.use(
   helmet({
-    // contentSecurityPolicy: {
-    //   directives: {
-    //     "form-action": ["'self'"],
-    //   },
-    // },
     hidePoweredBy: true,
   })
 );
@@ -38,7 +33,7 @@ app.use(express.static(path.resolve(__dirname, "../client/build")));
 
 // Handle GET requests to /api route
 app.get("/api", async (req, res) => {
-  res.json({ message: "Hello from server KL!" });
+  res.json({ message: "Hello from Afif Dev! https://github.com/afif-dev" });
 });
 
 // Get stripe checkout sessions - (ex: id = cs_test_a1wOfPCC070C32lscshjEY5GcXajk0MkAoMBQXBa3Ug7FpyyikSbJbEi3X)

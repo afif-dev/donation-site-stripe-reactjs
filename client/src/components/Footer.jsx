@@ -12,6 +12,10 @@ function Footer() {
           <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
         </svg>
       </a>
+      {" # "}
+      <a className="text-cyan-200" href="https://github.com/afif-dev/donation-site-stripe-reactjs" target="_blank" rel="noreferrer">
+        GitHub Repo
+      </a>
     </footer>
   );
 }
