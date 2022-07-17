@@ -22,8 +22,16 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_API_KEY);
 const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
 
 const app = express();
-app.disable("x-powered-by");
-app.use(helmet());
+app.use(
+  helmet({
+    // contentSecurityPolicy: {
+    //   directives: {
+    //     "form-action": ["'self'"],
+    //   },
+    // },
+    hidePoweredBy: true,
+  })
+);
 
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, "../client/build")));
@@ -48,7 +56,7 @@ app.get("/stripe/sessions/expire/:id", async (req, res) => {
 });
 
 // Stripe Create a Session - https://stripe.com/docs/api/checkout/sessions/create
-app.post("/create-checkout-session", async (req, res, next) => {
+app.post("/stripe/create-checkout-session", async (req, res, next) => {
   const form = formidable({});
   const expires_hours = process.env.STRIPE_EXPIRES_HOURS ?? 1;
   const expires_time = Math.floor(new Date().setHours(new Date().getHours() + parseInt(expires_hours)) / 1000);
@@ -133,7 +141,8 @@ app.post("/create-checkout-session", async (req, res, next) => {
         timestamp: FieldValue.serverTimestamp(),
       });
 
-    res.redirect(303, session.url);
+    // res.redirect(303, session.url);
+    res.send(session.url);
   });
 });
 

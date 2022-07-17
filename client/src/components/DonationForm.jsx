@@ -39,6 +39,22 @@ function DonationForm() {
     setPaymentType(pt);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    let data = new FormData();
+    data.append("amount", amount);
+    data.append("mode", paymentType.mode);
+    data.append("interval", paymentType.interval);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "/stripe/create-checkout-session", true);
+    xhr.onload = function () {
+      window.location.replace(this.responseText);
+    };
+    xhr.send(data);
+  };
+
   function ButtonAmount(props) {
     const className = "block w-full p-4 bg-indigo-600 text-white font-medium text-lg leading-tight uppercase rounded shadow-md hover:bg-indigo-700 hover:shadow-lg focus:bg-indigo-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-indigo-800 active:shadow-lg transition duration-150 ease-in-out";
     const classNameActive = "block w-full p-4 bg-pink-600 text-white font-medium text-lg leading-tight uppercase rounded shadow-md";
@@ -75,7 +91,7 @@ function DonationForm() {
         <span className="flex-shrink mx-4 text-black-800">Donation details</span>
         <div className="flex-grow border-t border-gray-300"></div>
       </div>
-      <form method="POST" action="/create-checkout-session">
+      <form onSubmit={handleSubmit}>
         <div className="flex flex-wrap items-center justify-center">
           <div className="basis-1/2 p-2">
             <ButtonAmount amount={5} />
